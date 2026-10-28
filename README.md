@@ -12,6 +12,7 @@ Detailed setup guides for each platform:
 | [02 — Debian/Ubuntu](tutorials/02-debian-setup.md) | `apt` based |
 | [03 — Arch Linux](tutorials/03-arch-setup.md) | `pacman` based |
 | [04 — Fedora](tutorials/04-fedora-setup.md) | `dnf` based |
+| [05 — RTL-SDR](tutorials/05-rtlsdr-setup.md) | Driver blacklist, udev, calibration |
 
 ## Quick setup (if drivers are already installed)
 
@@ -52,6 +53,15 @@ A mono 48 kHz WAV file works best for the AM audio transmitter labs.
 | `am_noise_tx.grc` | GRC flowgraph for noise AM TX |
 | `am_audio_tx.grc` | GRC flowgraph for audio AM TX |
 
+### Lab 03 — RTL-SDR Receive (`labs/03-rtlsdr-rx/`)
+
+| File | Description |
+|------|-------------|
+| `fm_receiver.py` | Wideband FM receiver with audio output |
+| `spectrum_waterfall.py` | Real-time spectrum analyzer + waterfall display (Qt GUI) |
+| `fm_receiver.grc` | GRC flowgraph for FM receiver |
+| `spectrum_waterfall.grc` | GRC flowgraph for spectrum/waterfall |
+
 ## Usage
 
 ```bash
@@ -66,5 +76,6 @@ gnuradio-companion labs/02-am-tx/am_audio_tx.grc
 
 ## Hardware tested
 
-- **HackRF One** — via SoapySDR (`driver=hackrf`)
-- **USRP B200mini** — via SoapySDR (`driver=uhd`)
+- **HackRF One** — via SoapySDR (`driver=hackrf`) — TX/RX
+- **USRP B200mini** — via SoapySDR (`driver=uhd`) — TX/RX
+- **RTL-SDR** (RTL2832U + R820T2) — via SoapySDR (`driver=rtlsdr`) — RX only
