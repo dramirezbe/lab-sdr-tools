@@ -2,15 +2,18 @@
 
 SDR laboratory scripts for AM transmission using GNU Radio, HackRF One, and USRP B200mini.
 
-## Requirements
+## Installation tutorials
 
-- Arch Linux (tested on omarchy kernel 7.2.5)
-- GNU Radio 3.10+ (`sudo pacman -S gnuradio`)
-- SoapySDR with HackRF and/or UHD drivers
-- Python 3.14+
-- [uv](https://docs.astral.sh/uv/) package manager
+Detailed setup guides for each platform:
 
-## Setup
+| Tutorial | Platform |
+|----------|----------|
+| [01 — WSL + USBIPD](tutorials/01-wsl-usbipd-setup.md) | Windows + WSL2 (USB passthrough) |
+| [02 — Debian/Ubuntu](tutorials/02-debian-setup.md) | `apt` based |
+| [03 — Arch Linux](tutorials/03-arch-setup.md) | `pacman` based |
+| [04 — Fedora](tutorials/04-fedora-setup.md) | `dnf` based |
+
+## Quick setup (if drivers are already installed)
 
 ```bash
 uv venv --python /usr/bin/python3 --system-site-packages
