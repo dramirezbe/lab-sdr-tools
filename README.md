@@ -51,7 +51,8 @@ A mono 48 kHz WAV file works best for the AM audio transmitter labs.
 | `am_audio_tx_hackrf.py` | AM transmitter with WAV audio via HackRF |
 | `am_audio_tx_usrp.py` | AM transmitter with WAV audio via USRP B200mini |
 | `am_noise_tx.grc` | GRC flowgraph for noise AM TX |
-| `am_audio_tx.grc` | GRC flowgraph for audio AM TX |
+| `am_audio_tx_hackrf.grc` | GRC flowgraph for audio AM TX (HackRF) |
+| `am_audio_tx_usrp.grc` | GRC flowgraph for audio AM TX (USRP) |
 
 ### Lab 03 — RTL-SDR Receive (`labs/03-rtlsdr-rx/`)
 
