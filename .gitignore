@@ -1,0 +1,18 @@
+# Virtual environment
+.venv/
+*.egg-info/
+
+# Python
+__pycache__/
+*.pyc
+
+# Audio assets (too large for git)
+*.wav
+*.mp3
+*.flac
+
+# GNU Radio
+*.py.bak
+
+# OS
+.DS_Store

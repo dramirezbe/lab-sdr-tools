@@ -1,0 +1,13 @@
+[project]
+name = "lab-sdr-tools"
+version = "0.1.0"
+description = "SDR laboratory scripts for AM transmission using GNU Radio, HackRF, and USRP"
+requires-python = ">=3.14"
+dependencies = [
+    "numpy",
+    "scipy",
+]
+
+[tool.uv]
+# gnuradio, soapysdr, etc. come from system packages
+# Create venv with: uv venv --python /usr/bin/python3 --system-site-packages
