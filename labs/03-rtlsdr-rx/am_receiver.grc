@@ -1,0 +1,228 @@
+options:
+  parameters:
+    author: lab-sdr-tools
+    catch_exceptions: 'True'
+    category: '[GRC Hier Blocks]'
+    cmake_opt: ''
+    comment: 'AM receiver using RTL-SDR — envelope detection'
+    copyright: ''
+    description: ''
+    gen_cmake: 'On'
+    gen_linking: dynamic
+    generate_options: qt_gui
+    hier_block_src_path: '.:'
+    id: am_receiver
+    max_nouts: '0'
+    output_language: python
+    placement: (0,0)
+    qt_qss_theme: ''
+    realtime_scheduling: ''
+    run: 'True'
+    run_command: '{python} -u {filename}'
+    run_options: prompt
+    sizing_mode: fixed
+    thread_safe_setters: ''
+    title: AM Receiver (RTL-SDR)
+    window_size: (1000,1000)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 8]
+    rotation: 0
+    state: enabled
+
+blocks:
+- name: samp_rate
+  id: variable
+  parameters:
+    comment: ''
+    value: 2.4e6
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 160]
+    rotation: 0
+    state: enabled
+
+- name: freq
+  id: variable
+  parameters:
+    comment: ''
+    value: 80e6
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 240]
+    rotation: 0
+    state: enabled
+
+- name: audio_rate
+  id: variable
+  parameters:
+    comment: ''
+    value: 48000
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 320]
+    rotation: 0
+    state: enabled
+
+- name: channel_width
+  id: variable
+  parameters:
+    comment: ''
+    value: 10e3
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 400]
+    rotation: 0
+    state: enabled
+
+- name: soapy_rtlsdr_source_0
+  id: soapy_rtlsdr_source
+  parameters:
+    center_freq: freq
+    samp_rate: samp_rate
+    gain: '40'
+    type: fc32
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [200, 500]
+    rotation: 0
+    state: enabled
+
+- name: low_pass_filter_0
+  id: low_pass_filter
+  parameters:
+    beta: '6.76'
+    cutoff_freq: channel_width
+    decim: int(samp_rate / audio_rate)
+    gain: '1'
+    interp: '1'
+    samp_rate: samp_rate
+    type: fir_filter_ccf
+    width: channel_width * 0.5
+    win: window.WIN_HAMMING
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [480, 476]
+    rotation: 0
+    state: enabled
+
+- name: blocks_complex_to_mag_0
+  id: blocks_complex_to_mag
+  parameters:
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [720, 504]
+    rotation: 0
+    state: enabled
+
+- name: dc_blocker_xx_0
+  id: dc_blocker_xx
+  parameters:
+    length: '32'
+    long_form: 'True'
+    type: ff
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [920, 496]
+    rotation: 0
+    state: enabled
+
+- name: analog_agc_xx_0
+  id: analog_agc_xx
+  parameters:
+    gain: '1.0'
+    max_gain: '65536'
+    rate: 1e-3
+    reference: '0.5'
+    type: float
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1120, 480]
+    rotation: 0
+    state: enabled
+
+- name: audio_sink_0
+  id: audio_sink
+  parameters:
+    device_name: ''
+    num_inputs: '1'
+    ok_to_block: 'True'
+    samp_rate: audio_rate
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1320, 504]
+    rotation: 0
+    state: enabled
+
+- name: qtgui_freq_sink_0
+  id: qtgui_freq_sink_x
+  parameters:
+    autoscale: 'False'
+    average: '1.0'
+    axislabels: 'True'
+    bw: samp_rate
+    fc: freq
+    fftsize: '2048'
+    freqhalf: 'True'
+    grid: 'True'
+    gui_hint: ''
+    label: Relative Gain
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    name: '"Spectrum"'
+    nconnections: '1'
+    norm_window: 'False'
+    showports: 'False'
+    tr_chan: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_tag: '""'
+    type: complex
+    units: dB
+    update_time: '0.10'
+    width1: '1'
+    wintype: window.WIN_BLACKMAN_HARRIS
+    ymax: '0'
+    ymin: '-120'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [480, 660]
+    rotation: 0
+    state: enabled
+
+connections:
+- [soapy_rtlsdr_source_0, '0', low_pass_filter_0, '0']
+- [low_pass_filter_0, '0', blocks_complex_to_mag_0, '0']
+- [blocks_complex_to_mag_0, '0', dc_blocker_xx_0, '0']
+- [dc_blocker_xx_0, '0', analog_agc_xx_0, '0']
+- [analog_agc_xx_0, '0', audio_sink_0, '0']
+- [soapy_rtlsdr_source_0, '0', qtgui_freq_sink_0, '0']
+
+metadata:
+  file_format: 1
+  grc_version: 3.10.12.0

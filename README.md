@@ -57,8 +57,10 @@ A mono 48 kHz WAV file works best for the AM audio transmitter labs.
 
 | File | Description |
 |------|-------------|
+| `am_receiver.py` | AM envelope detector receiver with audio output |
 | `fm_receiver.py` | Wideband FM receiver with audio output |
 | `spectrum_waterfall.py` | Real-time spectrum analyzer + waterfall display (Qt GUI) |
+| `am_receiver.grc` | GRC flowgraph for AM receiver |
 | `fm_receiver.grc` | GRC flowgraph for FM receiver |
 | `spectrum_waterfall.grc` | GRC flowgraph for spectrum/waterfall |
 
